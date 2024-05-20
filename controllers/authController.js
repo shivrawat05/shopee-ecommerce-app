@@ -216,24 +216,73 @@ export const getOrdersController = async (req, res) => {
     });
   }
 };
+
+
+
 //orders
+// export const getAllOrdersController = async (req, res) => {
+//   try {
+//     const orders = await orderModel
+//       .find({})
+//       .populate("products", "-photo")
+//       .populate("buyer", "name")
+//       .sort({ createdAt: "-1" });
+//     res.json(orders);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       success: false,
+//       message: "Error WHile Geting Orders",
+//       error,
+//     });
+//   }
+// };
+
+
+
+// export const getAllOrdersController = async (req, res) => {
+//   try {
+//     // Ensure the database connection is established
+//     if (mongoose.connection.readyState !== 1) {
+//       throw new Error("Database not connected");
+//     }
+
+//     const orders = await orderModel
+//       .find({})
+//       .populate("products", "-photo")
+//       .populate("buyer", "name")
+//       .sort({ createdAt: "-1" });
+
+//     res.json(orders);
+//   } catch (error) {
+//     console.error("Error while getting orders:", error.message, error.stack);
+//     res.status(500).send({
+//       success: false,
+//       message: "Error while getting orders",
+//       error: error.message,
+//     });
+//   }
+// };
+
 export const getAllOrdersController = async (req, res) => {
   try {
     const orders = await orderModel
       .find({})
-      .populate("products", "-photo")
-      .populate("buyer", "name")
-      .sort({ createdAt: "-1" });
+      .populate('products', '-photo')
+      .populate('buyer', 'name')
+      .sort({ createdAt: -1 });
+
     res.json(orders);
   } catch (error) {
-    console.log(error);
+    console.error('Error while getting all orders:', error);
     res.status(500).send({
       success: false,
-      message: "Error WHile Geting Orders",
-      error,
+      message: 'Error while getting all orders',
+      error: error.message,
     });
   }
 };
+
 
 //order status
 export const orderStatusController = async (req, res) => {
